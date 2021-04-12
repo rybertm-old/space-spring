@@ -32,6 +32,10 @@ public class PlanetService {
         return repo.findAll();
     }
 
+    public List<PlanetView> getAboveRadiation() {
+        return viewRepo.findView();
+    }
+
     public void addSatellite(int id, SatelliteDTO sat) throws IllegalArgumentException {
         Planet pl = find(id);
         Satellite st = satRepo.save(new Satellite(null, sat.getName(), sat.getNatural(), pl));

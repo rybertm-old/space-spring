@@ -35,6 +35,11 @@ public class PlanetController {
         return ResponseEntity.ok().body(service.find(id));
     }
 
+    @GetMapping("/radiation")
+    public ResponseEntity<List<PlanetView>> getAllAboveRadiation() {
+        return ResponseEntity.ok().body(service.getAboveRadiation());
+    }
+
     @PostMapping("/{id}")
     public ResponseEntity<Void> addSatellite(@PathVariable Integer id, @RequestBody SatelliteDTO sat)
             throws IllegalArgumentException {
