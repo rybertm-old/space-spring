@@ -1,5 +1,7 @@
 package com.estudo.space.domain.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -9,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SatelliteDTO {
+public class StarDTO {
     private Integer id;
 
     @NotNull
     private String name;
 
     @NotNull
-    private Boolean natural;
+    private Double influenceRadius;
 }

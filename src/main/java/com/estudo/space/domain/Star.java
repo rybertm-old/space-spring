@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -29,13 +30,18 @@ public class Star {
     private Integer id;
 
     @Column(nullable = false)
+    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
+    private String name;
+
+    @Column(nullable = false)
     private Double influenceRadius;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL, orphanRemoval = true)
     List<PlanetStar> planets = new ArrayList<>();
 
-    public Star(Double infRad) {
+    public Star(String name, Double infRad) {
+        this.name = name;
         this.influenceRadius = infRad;
     }
 }

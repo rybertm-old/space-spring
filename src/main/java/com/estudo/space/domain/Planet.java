@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,6 +36,7 @@ public class Planet {
     private Integer id;
 
     @Column(nullable = false)
+    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
     private String name;
 
     @Column(nullable = false)

@@ -2,8 +2,12 @@ package com.estudo.space.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.estudo.space.domain.Satellite;
 import com.estudo.space.domain.dto.SatelliteDTO;
+import com.estudo.space.exception.ServiceException;
 import com.estudo.space.repository.SatelliteRepository;
 import com.estudo.space.service.SatelliteService;
 
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/satellites")
+@RequestMapping("/satellite")
 @RequiredArgsConstructor
 public class SatelliteController {
     private final SatelliteService service;
@@ -29,8 +33,28 @@ public class SatelliteController {
         return ResponseEntity.ok().body(repo.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> get(@PathVariable @NotNull Integer id) {
+        try {
+            return ResponseEntity.ok().body(service.find(id));
+        } catch (ServiceException ex) {
+            Throwable th = ex.getCause();
+            String err = "\nErr: " + ex.getMessage() + ",\nCause: " + th.toString();
+            System.out.println(err);
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Satellite> edit(@PathVariable Integer id, @RequestBody SatelliteDTO newSat) {
-        return ResponseEntity.ok().body(service.editSatellite(id, newSat));
+    public ResponseEntity<String> edit(@PathVariable @NotNull Integer id, @Valid @RequestBody SatelliteDTO newSat) {
+        try {
+            service.editSatellite(id, newSat);
+            return ResponseEntity.ok().body("Satellite edited sucessfully");
+        } catch (ServiceException ex) {
+            Throwable th = ex.getCause();
+            String err = "\nErr: " + ex.getMessage() + ",\nCause: " + th.toString();
+            System.out.println(err);
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.estudo.space.domain.Galaxy;
-import com.estudo.space.domain.dto.GalaxyDTO;
+import com.estudo.space.domain.Gravity;
+import com.estudo.space.domain.dto.GravityDTO;
 import com.estudo.space.exception.ServiceException;
-import com.estudo.space.service.GalaxyService;
+import com.estudo.space.service.GravityService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/galaxy")
+@RequestMapping("/gravity")
 @RequiredArgsConstructor
-public class GalaxyController {
-    private final GalaxyService service;
+public class GravityController {
+    private final GravityService service;
 
     @GetMapping
-    public ResponseEntity<List<Galaxy>> getAll() {
+    public ResponseEntity<List<Gravity>> getAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
@@ -45,10 +45,10 @@ public class GalaxyController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@Valid GalaxyDTO dto) {
+    public ResponseEntity<String> create(@Valid GravityDTO dto) {
         try {
             service.create(dto);
-            return ResponseEntity.ok().body("Galaxy created.");
+            return ResponseEntity.ok().body("Gravity created.");
         } catch (ServiceException ex) {
             Throwable th = ex.getCause();
             String err = "\nErr: " + ex.getMessage() + ",\nCause: " + th.toString();
@@ -58,9 +58,9 @@ public class GalaxyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> edit(@PathVariable @NotNull Integer id, @Valid GalaxyDTO dto) {
+    public ResponseEntity<?> edit(@PathVariable @NotNull Integer id, @Valid GravityDTO dto) {
         try {
-            return ResponseEntity.ok().body(service.editGalaxy(id, dto));
+            return ResponseEntity.ok().body(service.editGravity(id, dto));
         } catch (ServiceException ex) {
             Throwable th = ex.getCause();
             String err = "\nErr: " + ex.getMessage() + ",\nCause: " + th.toString();
@@ -73,7 +73,7 @@ public class GalaxyController {
     public ResponseEntity<String> delete(@PathVariable @NotNull Integer id) {
         try {
             service.delete(id);
-            return ResponseEntity.ok().body("Galaxy deleted.");
+            return ResponseEntity.ok().body("Gravity deleted.");
         } catch (ServiceException ex) {
             Throwable th = ex.getCause();
             String err = "\nErr: " + ex.getMessage() + ",\nCause: " + th.toString();

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.estudo.space.domain.dto.SatelliteDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,6 +30,7 @@ public class Satellite {
     private Integer id;
 
     @Column(nullable = false)
+    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
     private String name;
 
     @JsonProperty("natural")

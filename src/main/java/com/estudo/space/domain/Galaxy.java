@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -29,9 +31,11 @@ public class Galaxy {
     private Integer id;
 
     @Column(nullable = false)
+    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
     private String name;
 
     @Column(nullable = false)
+    @Max(value = Long.MAX_VALUE, message = "Cannot have more than 2^63 - 1 Planets")
     private Long numberOfPlanets;
 
     @JsonBackReference

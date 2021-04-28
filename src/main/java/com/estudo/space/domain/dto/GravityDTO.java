@@ -1,20 +1,18 @@
 package com.estudo.space.domain.dto;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class SatelliteDTO {
+public class GravityDTO {
     private Integer id;
 
-    @NotNull
-    private String name;
+    private Double force;
 
-    @NotNull
-    private Boolean natural;
+    private Double radiation;
+
+    private Integer planetId;
 }
